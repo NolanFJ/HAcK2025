@@ -19,14 +19,14 @@ class Light:
         A = 500000 # depends on LDR
         B = 1.4 # depends on LDR
         
-        lux = (A / ldr_resistance) ** (1 / B) / 100
-        return lux
+        lux = (A / ldr_resistance) ** (1 / B)
+        return ((lux / 100) + 0.05)
         
-    
     def readLux(self):
         raw = self.ldr.read_u16()
         lux = self.adc_to_lux(raw)
         
         return f"Lux: {lux:.2f}"
+
 
 
