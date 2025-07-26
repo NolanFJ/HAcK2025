@@ -1,6 +1,8 @@
 # TODO: Import your libaries
 import base64
 from openai import OpenAI
+from pathlib import Path
+import receive
 
 # TODO: Maybe you need a key?
 from key import API_KEY
@@ -30,10 +32,16 @@ response = client.responses.create(
     ],
 )
 
-
 # TODO: How do we make things audible?
-   
+speech_file_path = Path(__file__).parent / "speech.mp3"
 
+with client.audio.speech.with_streaming_response.create(
+    model='gpt-4o-mini-tts',
+    voice="coral",
+    input= (response.output_text),
+    instructions="Speak in a cheerful and positive tone.",
+) as response:
+    response.stream_to_file(speech_file_path)
 
 # TODO: Can we put everything together?
 
