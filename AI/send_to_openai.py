@@ -2,7 +2,6 @@
 import base64
 from openai import OpenAI
 from pathlib import Path
-import receive
 
 # TODO: Maybe you need a key?
 from key import API_KEY
@@ -14,6 +13,12 @@ def encode_image(image_path):
     with open(image_path, "rb") as image_F:
         return base64.b64encode(image_F.read()).decode("utf-8")
 
+# path to image
+# CURRENTLY USING TEST IMAGE
+image_path = "C:/Users/nfjoh/git/Personal/HaCK_Starter_Code/AI/SAMPLEIMAGE.jpg"
+
+# Getting the base64 string
+base64_image = encode_image(image_path)
 
 # TODO: Sending a request and getting a response
 response = client.responses.create(
@@ -38,7 +43,7 @@ speech_file_path = Path(__file__).parent / "speech.mp3"
 with client.audio.speech.with_streaming_response.create(
     model='gpt-4o-mini-tts',
     voice="coral",
-    input= (response.output_text),
+    input=(response.output_text),
     instructions="Speak in a cheerful and positive tone.",
 ) as response:
     response.stream_to_file(speech_file_path)
