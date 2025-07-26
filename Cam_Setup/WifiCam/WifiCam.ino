@@ -3,15 +3,14 @@
 #include "WifiCam.hpp"
 #include <WiFi.h>
 
-static const char* WIFI_SSID = "bruins";
-static const char* WIFI_PASS = "connect12";
+static const char *WIFI_SSID = "bruins";
+static const char *WIFI_PASS = "connect12";
 
 esp32cam::Resolution initialResolution;
 
 WebServer server(80);
 
-void
-setup() {
+void setup() {
   Serial.begin(115200);
   Serial.println();
   esp32cam::setLogger(Serial);
@@ -55,7 +54,4 @@ setup() {
   server.begin();
 }
 
-void
-loop() {
-  server.handleClient();
-}
+void loop() { server.handleClient(); }
