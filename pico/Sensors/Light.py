@@ -19,7 +19,7 @@ class Light:
         A = 500000 # depends on LDR
         B = 1.4 # depends on LDR
         
-        lux = (A / ldr_resistance) ** (1 / B)
+        lux = (A / ldr_resistance) ** (1 / B) / 100
         return lux
         
     
