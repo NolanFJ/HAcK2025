@@ -1,9 +1,13 @@
 from connections import connect_mqtt, connect_internet
 from time import sleep
 from Sensors.Light import Light
+from Sensors.temp import TempHumid
+from Sensors.ultsens import Ultrasonic
 import random
 
 lightSensor = Light(28)
+tempSensor = TempHumid(4)
+ultraSensor = Ultrasonic(3, 2)
 
 # mainly just testing connection
 def cb(topic, msg):
@@ -26,12 +30,28 @@ def main():
             client.check_msg()
             
             if (counter % 20):
+                # light
                 lux = lightSensor.readLux()
                 client.publish("light", str(lux))
                 print(f"{lux}")
-            
+                
+                # temp 
+                temp = tempSensor.readTemp()
+                client.publish("temp", str(temp))
+                print(f"Temp: {temp}")
+                
+                # humidity
+                humidity = tempSensor.readHumidity()
+                client.publish("humidity", str(humidity))
+                print(f"Humidity: {humidity}")
+                
+                # ultrasonic
+                distance = ultraSensor.readDistance()
+                client.publish("ultrasonic", str(distance))
+                print(f"Distance: {distance}")
+                
             counter += 1
-            sleep(0.1)
+            sleep(0.2)
             
     except KeyboardInterrupt:
         print('keyboard interrupt')
