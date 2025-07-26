@@ -26,9 +26,9 @@ def main():
             client.check_msg()
             
             if (counter % 20):
-                brightness = lightSensor.readBrightness()
-                client.publish("light", str(brightness))
-                print(f"Light brightness: {brightness}%")
+                lux = lightSensor.readLux()
+                client.publish("light", str(lux))
+                print(f"{lux}")
             
             counter += 1
             sleep(0.1)
