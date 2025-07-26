@@ -5,9 +5,9 @@ import random
 
 lightSensor = Light(28)
 
-# test connection
+# mainly just testing connection
 def cb(topic, msg):
-    if topic == b"display":
+    if topic == b"take_picture":
         print(msg.decode())
 
 def main():
@@ -16,11 +16,12 @@ def main():
         client = connect_mqtt("", "", "")
         
         client.set_callback(cb)
-        client.subscribe(b"display")
+        client.subscribe(b"take_picture")
         
-        print("Subscribed to display topic")
+        print("Subscribed to take_picture topic")
         
         counter = 0
+        # main loop to check sensor data
         while True:
             client.check_msg()
             
