@@ -11,16 +11,28 @@ class TempHumid:
             self.dht_sensor.measure() #Takes new readings of temperature and humidity
             temperature = self.dht_sensor.temperature() #in Celsius
             humidity = self.dht_sensor.humidity() #in %
-            return(temperature)
+            return (temperature)
+        except OSError as e:
+            return("Sensor read error:", e)
+    # PLEASE FIX & TEST THISSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
+    # def readTemp(self):
+        try:
+            self.dht_sensor.measure() #Takes new readings of temperature and humidity
+            return self.dht_sensor.temperature() 
         except OSError as e:
             return("Sensor read error:", e)
         
     def readHumidity(self):
         try:
-            self.dht_sensor.measure()
+            self.dht_sensor.measure() #Takes new readings of temperature and humidity
             humidity = self.dht_sensor.humidity()
             return(humidity)
         except OSError as e:
             return("Sensor read error:", e)
-            
+    # def readHumidity(self):
+        try:
+            self.dht_sensor.measure() #Takes new readings of temperature and humidity
+            return self.dht_sensor.humidity()
+        except OSError as e:
+            return("Sensor read error:", e)
 

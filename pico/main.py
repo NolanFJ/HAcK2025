@@ -3,9 +3,8 @@ from time import sleep
 from Sensors.Light import Light
 from Sensors.temp import TempHumid
 from Sensors.ultsens import Ultrasonic
-
 from machine import Pin, I2C
-import ssd1306  # Make sure the correct OLED library is uploaded (ssd1306.py)
+import ssd1306 #IMPORTANT NEED FOR OLED DISPLAY!
 
 # Initialize sensors
 lightSensor = Light(28)
