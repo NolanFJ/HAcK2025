@@ -1,15 +1,14 @@
 #include "WifiCam.hpp"
 #include <WiFi.h>
 
-static const char* WIFI_SSID = "Jerard";
-static const char* WIFI_PASS = "jerarda32";
+static const char *WIFI_SSID = "NETGEAR10";
+static const char *WIFI_PASS = "classychair372";
 
 esp32cam::Resolution initialResolution;
 
 WebServer server(80);
 
-void
-setup() {
+void setup() {
   Serial.begin(115200);
   Serial.println();
   esp32cam::setLogger(Serial);
@@ -53,7 +52,4 @@ setup() {
   server.begin();
 }
 
-void
-loop() {
-  server.handleClient();
-}
+void loop() { server.handleClient(); }
