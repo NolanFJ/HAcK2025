@@ -14,6 +14,11 @@ def cb(topic, msg):
     if topic == b"take_picture":
         print(msg.decode())
 
+# receive a message and display to OLED
+def message(topic, msg):
+    if topic == b"display":
+        print(msg.decode())
+
 def main():
     try:
         connect_internet("", password="")
@@ -22,7 +27,11 @@ def main():
         client.set_callback(cb)
         client.subscribe(b"take_picture")
         
+        client.set_callback(message)
+        client.subscribe(b"display")
+        
         print("Subscribed to take_picture topic")
+        print("Subscribed to display topic")
         
         counter = 0
         # main loop to check sensor data
@@ -33,22 +42,22 @@ def main():
                 # light
                 lux = lightSensor.readLux()
                 client.publish("light", str(lux))
-                print(f"{lux}")
+                #print(f"{lux}")
                 
                 # temp 
                 temp = tempSensor.readTemp()
                 client.publish("temp", str(temp))
-                print(f"Temp: {temp}")
+                #print(f"Temp: {temp}")
                 
                 # humidity
                 humidity = tempSensor.readHumidity()
                 client.publish("humidity", str(humidity))
-                print(f"Humidity: {humidity}")
+                #print(f"Humidity: {humidity}")
                 
                 # ultrasonic
                 distance = ultraSensor.readDistance()
                 client.publish("ultrasonic", str(distance))
-                print(f"Distance: {distance}")
+                #print(f"Distance: {distance}")
                 
             counter += 1
             sleep(0.2)

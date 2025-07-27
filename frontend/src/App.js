@@ -10,6 +10,7 @@ function App() {
   const [humidity, setHumidity] = useState(null);
   const [ultrasonic, setUltrasonic] = useState(null);
   const [light, setLight] = useState(null);
+  const [message, setMessage] = useState("");
 
   useEffect(() => {
     socket.on('connect', () => console.log('Connected:', socket.id));
@@ -53,8 +54,21 @@ function App() {
 
   // send a message to the pico
   const sendMessage = () => {
-    console.log("Sending message from frontend")
-    socket.emit('display', 'Hello from frontend') //test for now
+    if (message.trim()) {
+      console.log("Sending message from frontend: ", message)
+      socket.emit('display', message)
+      setMessage(""); // clear input after sending
+    }
+    else {
+      alert("Please enter a mesage");
+    }
+  }
+
+  // handle enter key input
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      sendMessage();
+    }
   }
 
   return (
@@ -66,8 +80,23 @@ function App() {
         <p>Humidity: {humidity || 'No data'}</p>
         <p>Light: {light || 'No data'}</p>
         <p>Ultrasonic: {ultrasonic || 'No data'}</p>
+
         <button onClick={handlePicture}>Take Picture</button>
         {pictureStatus && <p>{pictureStatus}</p>}
+
+        <p>             </p>
+
+        {/* Message input section */}
+        <div>
+          <input
+            type="text"
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            onKeyDown={handleKeyPress}
+            placeholder="Type message for Pico..."
+          />
+          <button onClick={sendMessage}>Send to Pico</button>
+        </div>
       </div>
     </div>
   )
