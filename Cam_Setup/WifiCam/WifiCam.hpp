@@ -20,6 +20,3 @@ addRequestHandlers();
 
 #endif // WIFICAM_HPP
 
-hello 
-the 
-he he eh

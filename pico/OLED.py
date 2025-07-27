@@ -19,7 +19,7 @@ oled.show()
 time.sleep(1)  # Wait for another second
 
 # Display text on the OLED screen
-oled.text('Hello,', 0, 0)  # Display "Hello," at position (0, 0)
+oled.text('main.,', 0, 0)  # Display "Hello," at position (0, 0)
 oled.text('different hello', 0, 16)  # Display "sunfounder.com" at position (0, 16)
 
 # The following line sends what to show to the display
