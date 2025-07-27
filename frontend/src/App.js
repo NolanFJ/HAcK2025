@@ -78,52 +78,89 @@ function App() {
   }
 
   return (
-    <div className="app">
-      <p>               </p>
-
-      {/* Display sensor data */}
-      <div>
-        <p>Temperature: {temp || 'No data'}</p>
-        <p>Humidity: {humidity || 'No data'}</p>
-        <p>Light: {light || 'No data'}</p>
-        <p>Ultrasonic: {ultrasonic || 'No data'}</p>
-      </div>
-
-      {/* Picture section */}
-      <div>
-        <button onClick={handlePicture}>Take Picture</button>
-        {pictureStatus && <p>{pictureStatus}</p>}
-
-        {/* Display the current image */}
-        {currentImage && (
-          <div>
-            <h3>Latest Picture:</h3>
-            <img
-              src={currentImage}
-              alt="Latest capture"
-              style={{ maxWidth: '500px', maxHeight: '400px', border: '1px solid #ccc' }}
-              onError={() => {
-                console.log('Image failed to load');
-                setCurrentImage(null);
-              }}
-            />
+    <div className="dashboard">
+      <div className="dashboard-container">
+        <div className="main-grid">
+          {/* Display sensor data */}
+          <div className="sensor-section">
+            <h2 className="section-header">
+              Sensor Readings
+            </h2>
+            <div className="sensor-grid">
+              <div className="sensor-card temperature">
+                <div className="sensor-label">Temperature (F)</div>
+                <div className="sensor-value">{temp || 'No data'}</div>
+              </div>
+              <div className="sensor-card humidity">
+                <div className="sensor-label">Humidity (%)</div>
+                <div className="sensor-value">{humidity || 'No data'}</div>
+              </div>
+              <div className="sensor-card light">
+                <div className="sensor-label">Light (lumens)</div>
+                <div className="sensor-value">{light || 'No data'}</div>
+              </div>
+              <div className="sensor-card ultrasonic">
+                <div className="sensor-label">Distance (cm)</div>
+                <div className="sensor-value">{ultrasonic || 'No data'}</div>
+              </div>
+            </div>
           </div>
-        )}
-      </div>
 
-      {/* Message input section */}
-      <div>
-        <input
-          type="text"
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-          onKeyDown={handleKeyPress}
-          placeholder="Type message for Pico..."
-        />
-        <button onClick={sendMessage}>Send to Pico</button>
+          {/* Camera Section */}
+          <div className="camera-section">
+            <h2 className="section-header">
+              Camera Control
+            </h2>
+
+            <div className="camera-controls">
+              <button onClick={handlePicture} className="take-picture-btn">
+                Take Picture
+              </button>
+              {pictureStatus && <p className="picture-status">{pictureStatus}</p>}
+            </div>
+
+            {/* Display the current image */}
+            {currentImage && (
+              <div className="image-container">
+                <h3 className="image-title">Latest Picture:</h3>
+                <div className="image-wrapper">
+                  <img
+                    src={currentImage}
+                    alt="Latest capture"
+                    className="captured-image"
+                    onError={() => {
+                      console.log('Image failed to load');
+                      setCurrentImage(null);
+                    }}
+                  />
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* Message input section */}
+        <div className="message-section">
+          <h2 className="section-header">
+            Send Message to Pico
+          </h2>
+          <div className="message-form">
+            <input
+              type="text"
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+              onKeyDown={handleKeyPress}
+              placeholder="Type message for Pico..."
+              className="message-input"
+            />
+            <button onClick={sendMessage} className="send-btn">
+              Send
+            </button>
+          </div>
+        </div>
       </div>
     </div>
-  )
+  );
 }
 
 export default App;

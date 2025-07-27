@@ -1,0 +1,180 @@
+/* Simple App.css */
+
+.dashboard {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #f0f9ff 0%, #e0e7ff 100%);
+    padding: 2rem;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+.dashboard-container {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.main-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+}
+
+/* Cards */
+.sensor-section,
+.camera-section,
+.message-section {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+}
+
+.section-header {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+/* Sensors */
+.sensor-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.sensor-card {
+    padding: 1rem;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.sensor-card.temperature {
+    background: #ff9999;
+}
+
+.sensor-card.humidity {
+    background: #99ccff;
+}
+
+.sensor-card.light {
+    background: #ffdd99;
+}
+
+.sensor-card.ultrasonic {
+    background: #cc99ff;
+}
+
+.sensor-label {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 0.3rem;
+}
+
+.sensor-value {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: white;
+}
+
+/* Camera */
+.camera-controls {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.take-picture-btn {
+    background: #3b82f6;
+    color: white;
+    font-weight: 600;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.take-picture-btn:hover {
+    background: #2563eb;
+}
+
+.picture-status {
+    margin-top: 1rem;
+    color: #3b82f6;
+    font-weight: 500;
+}
+
+.image-container {
+    text-align: center;
+}
+
+.image-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #555;
+    margin-bottom: 1rem;
+}
+
+.captured-image {
+    max-width: 100%;
+    max-height: 300px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Message */
+.message-section {
+    grid-column: 1 / -1;
+    margin-top: 2rem;
+}
+
+.message-form {
+    display: flex;
+    gap: 1rem;
+}
+
+.message-input {
+    flex: 1;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+}
+
+.message-input:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
+}
+
+.send-btn {
+    background: #10b981;
+    color: white;
+    font-weight: 600;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.send-btn:hover {
+    background: #059669;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .dashboard {
+        padding: 1rem;
+    }
+
+    .main-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .sensor-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .message-form {
+        flex-direction: column;
+    }
+}
