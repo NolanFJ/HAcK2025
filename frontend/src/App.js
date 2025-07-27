@@ -12,6 +12,7 @@ function App() {
   const [light, setLight] = useState(null);
   const [message, setMessage] = useState("");
   const [currentImage, setCurrentImage] = useState(null);
+  const [currentAudio, setCurrentAudio] = useState(null);
 
   useEffect(() => {
     socket.on('connect', () => console.log('Connected:', socket.id));
@@ -36,8 +37,13 @@ function App() {
       if (data.success) {
         const timestamp = new Date().getTime();
         const imagePath = `/downloaded_image.jpg?t=${timestamp}`;
-        console.log('Setting image path to: ', imagePath)
+        const audioPath = `/speech.mp3?t=${timestamp}`;
+
+        console.log('Setting image path to: ', imagePath);
+        console.log('Setting audio path to: ', audioPath);
+
         setCurrentImage(imagePath);
+        setCurrentAudio(audioPath);
       }
       setTimeout(() => setPictureStatus(""), 3000);
     });
@@ -134,6 +140,27 @@ function App() {
                     }}
                   />
                 </div>
+              </div>
+            )}
+
+            {/* Display the current audio */}
+            {currentAudio && (
+              <div className="audio-container">
+                <h3 className="audio-title">AI Description:</h3>
+                <audio
+                  controls
+                  src={currentAudio}
+                  className="audio-player"
+                  onError={() => {
+                    console.log('Audio failed to load');
+                    setCurrentAudio(null);
+                  }}
+                  onLoadedData={() => {
+                    console.log('Audio loaded successfully');
+                  }}
+                >
+                  Your browser does not support the audio element.
+                </audio>
               </div>
             )}
           </div>
