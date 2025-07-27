@@ -39,7 +39,7 @@ def processImage():
     )
 
     # TODO: How do we make things audible?
-    speech_file_path = Path(__file__).parent / "speech.mp3"
+    speech_file_path = Path(__file__).parent.parent / "frontend" / "public" / "speech.mp3"
 
     with client.audio.speech.with_streaming_response.create(
         model='gpt-4o-mini-tts',

@@ -24,3 +24,5 @@ yarn-error.log*
 
 # ESP32 Img
 *.jpg
+
+*.mp3
