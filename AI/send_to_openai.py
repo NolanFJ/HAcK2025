@@ -14,8 +14,7 @@ def encode_image(image_path):
         return base64.b64encode(image_F.read()).decode("utf-8")
 
 # path to image
-# CURRENTLY USING TEST IMAGE
-image_path = "C:/Users/nfjoh/git/Personal/HaCK_Starter_Code/AI/SAMPLEIMAGE.jpg"
+image_path = "../frontend/src/downloaded_image.jpg"
 
 # Getting the base64 string
 base64_image = encode_image(image_path)

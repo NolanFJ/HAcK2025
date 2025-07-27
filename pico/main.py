@@ -43,8 +43,8 @@ def message(topic, msg):
 
 def main():
     try:
-        connect_internet("HAcK-Project-WiFi-2", password="UCLA.HAcK.2024.Summer")
-        client = connect_mqtt("07e486cd3c324be6a09b98399a0b48e3.s1.eu.hivemq.cloud", "David", "DavidValdez1")
+        connect_internet("", password="")
+        client = connect_mqtt("", "", "")
         
         client.set_callback(cb)
         client.subscribe(b"take_picture")
