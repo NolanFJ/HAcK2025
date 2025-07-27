@@ -2,9 +2,9 @@ from machine import Pin, time_pulse_us
 import time
 
 class Ultrasonic:
-    def __init__(self):
-        self.trig_pin = Pin(3, Pin.OUT) # Trig pin at GPIO 3
-        self.echo_pin = Pin(2, Pin.IN) # Echo pin at GPIO 2
+    def __init__(self, trig_pin=3, echo_pin=2):
+        self.trig_pin = Pin(trig_pin, Pin.OUT)
+        self.echo_pin = Pin(echo_pin, Pin.IN)
     
     # Read distance from ultrasonic sensor in cm
     def readDistance(self):
@@ -13,7 +13,8 @@ class Ultrasonic:
         time.sleep_us(10)
         self.trig_pin.value(0)
 
-        # Measure how long echo is high (Echo goes high for the time it takes the sound to travel to object and back)
+        # Measure how long echo is high
+        # (Echo goes high for the time it takes the sound to travel to object and back)
         try:
             duration = time_pulse_us(self.echo_pin, 1, 30000)
             
