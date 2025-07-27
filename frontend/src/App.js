@@ -11,6 +11,7 @@ function App() {
   const [ultrasonic, setUltrasonic] = useState(null);
   const [light, setLight] = useState(null);
   const [message, setMessage] = useState("");
+  const [currentImage, setCurrentImage] = useState(null);
 
   useEffect(() => {
     socket.on('connect', () => console.log('Connected:', socket.id));
@@ -19,23 +20,28 @@ function App() {
     socket.on('temp', data => {
       setTemp(data);
     });
-
     socket.on('humidity', data => {
       setHumidity(data);
     });
-
     socket.on('ultrasonic', data => {
       setUltrasonic(data);
     });
-
     socket.on('light', data => {
       setLight(data)
-    })
+    });
 
+    // set picture connection, and update currentPicture
     socket.on('picture_taken', data => {
       setPictureStatus(data.message);
-      setTimeout(() => setPictureStatus(""), 3000); // Clear status after 3 seconds
+      if (data.success) {
+        const timestamp = new Date().getTime();
+        const imagePath = `/downloaded_image.jpg?t=${timestamp}`;
+        console.log('Setting image path to: ', imagePath)
+        setCurrentImage(imagePath);
+      }
+      setTimeout(() => setPictureStatus(""), 3000);
     });
+
     return () => {
       socket.off('temp');
       socket.off('humidity');
@@ -60,7 +66,7 @@ function App() {
       setMessage(""); // clear input after sending
     }
     else {
-      alert("Please enter a mesage");
+      alert("Please enter a message");
     }
   }
 
@@ -73,30 +79,48 @@ function App() {
 
   return (
     <div className="app">
-      <p>             </p>
-      {/* Display sensor data for testing */}
+      <p>               </p>
+
+      {/* Display sensor data */}
       <div>
         <p>Temperature: {temp || 'No data'}</p>
         <p>Humidity: {humidity || 'No data'}</p>
         <p>Light: {light || 'No data'}</p>
         <p>Ultrasonic: {ultrasonic || 'No data'}</p>
+      </div>
 
+      {/* Picture section */}
+      <div>
         <button onClick={handlePicture}>Take Picture</button>
         {pictureStatus && <p>{pictureStatus}</p>}
 
-        <p>             </p>
+        {/* Display the current image */}
+        {currentImage && (
+          <div>
+            <h3>Latest Picture:</h3>
+            <img
+              src={currentImage}
+              alt="Latest capture"
+              style={{ maxWidth: '500px', maxHeight: '400px', border: '1px solid #ccc' }}
+              onError={() => {
+                console.log('Image failed to load');
+                setCurrentImage(null);
+              }}
+            />
+          </div>
+        )}
+      </div>
 
-        {/* Message input section */}
-        <div>
-          <input
-            type="text"
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
-            onKeyDown={handleKeyPress}
-            placeholder="Type message for Pico..."
-          />
-          <button onClick={sendMessage}>Send to Pico</button>
-        </div>
+      {/* Message input section */}
+      <div>
+        <input
+          type="text"
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+          onKeyDown={handleKeyPress}
+          placeholder="Type message for Pico..."
+        />
+        <button onClick={sendMessage}>Send to Pico</button>
       </div>
     </div>
   )

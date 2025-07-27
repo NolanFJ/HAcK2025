@@ -140,9 +140,9 @@ io.on("connection", (socket) => {
     pythonProcess.on('close', (code) => {
       console.log(`Python script finished with code ${code}`);
       if (code === 0) {
-        socket.emit('picture_taken', { success: true, message: 'Picture analyzed successfully!' });
+        io.emit('picture_taken', { success: true, message: 'Picture analyzed successfully!' });
       } else {
-        socket.emit('picture_taken', { success: false, message: 'Failed to analyze picture' });
+        io.emit('picture_taken', { success: false, message: 'Failed to analyze picture' });
       }
     });
   });
