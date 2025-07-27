@@ -120,12 +120,9 @@ io.on("connection", (socket) => {
   // Handle take picture request
   socket.on('take_picture', () => {
     console.log('📸 Taking picture and getting AI description...');
-
-    // for testing
-    client.publish('take_picture', "capture")
-
+    
     // Execute the Python script
-    const pythonProcess = spawn('python', ['../AI/receive.py'], {
+    const pythonProcess = spawn('python3', ['../AI/receive.py', 'get_description'], {
       cwd: __dirname
     });
 
@@ -166,17 +163,16 @@ server.listen(8000, () => {
 
 client.on('message', (TOPIC, payload) => {
   console.log("Received from broker:", TOPIC, payload.toString());
-  if (TOPIC === 'temp') {
+  if( TOPIC === 'temp' ) {
     latestTemp = payload.toString();
   }
-  else if (TOPIC === 'ultrasonic') {
+  else if ( TOPIC === 'ultrasonic' ) {
     latestUltrasonic = payload.toString();
   }
-  else if (TOPIC === 'humidity') {
+  else if ( TOPIC === 'humidity') {
     latestHumidity = payload.toString();
   }
-  else if (TOPIC === 'light') {
+  else if ( TOPIC === 'light') {
     latestLight = payload.toString();
   }
 });
-
