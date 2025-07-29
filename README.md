@@ -1,17 +1,10 @@
-# Cloning the project 
+# HACK 2025 PROJECT
+
+## Cloning the project 
 
 - Clone the repository by running 'git clone (url)'
-- Once you're in the directory you just cloned, run the following code to remove the existing .git file:
 
-Windows:
-Remove-Item -Recurse -Force .git
-
-Mac:
-rm -rf .git
-
-- Finally, create a new repository on github, and add your code to it.
-
-# Backend and Frontend setup
+## Backend and Frontend setup
 
 - In the backend directory, create a file named '.env', and add the following:
 
@@ -31,7 +24,7 @@ rm -rf .git
 - You can start the frontend by running 
 ### `npm start`
 
-# Using connections.py for your Pico 2W
+## Using connections.py for your Pico 2W
 
 - You will be able to use 2 functions in connections.py
     - One for connection to the MQTT broker (connect_mqtt) and one for connecting to WIFI (connect_internet)
@@ -64,14 +57,15 @@ rm -rf .git
         - password:
             - this is the password of the wi-fi network you are trying to connect to
 
-# Cam_Setup folder
+## Cam_Setup folder
 
 - Code to program the camera has been provided to you.
 - Follow the instructions on the readme located within the Cam_Setup folder to set up your esp-32.\
 
-# Todo:
-- Implement API calls using the starter python code in the 'AI' folder
-- Program the esp-32 according to the readme
-- Fill out App.js in the frontend folder to customize your website and add the appropriate communication channels (use index.js in the backend as a reference)
-- Program your pico, adding functionality for any electrical components. You can edit the code on vscode and then transfer files to the pico via thonny, or you can edit the code directly on the pico using thonny.
-    
+## CAD folder
+
+- Showcases all of the CAD files used to build the gadget.
+
+## Circuits Schematics folder
+
+- Contains diagram of what the gadget's circuit is wired like.
