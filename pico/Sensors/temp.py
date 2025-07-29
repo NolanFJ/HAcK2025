@@ -6,7 +6,6 @@ class TempHumid:
     def __init__(self, pin=4):
         self.dht_sensor = dht.DHT11(Pin(pin))
         
-    # PLEASE FIX & TEST THISSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
     def readTemp(self):
         try:
             self.dht_sensor.measure() #Takes new readings of temperature

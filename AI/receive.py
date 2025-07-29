@@ -1,5 +1,3 @@
-
-# TODO: import your module
 import requests
 import os
 import sys
@@ -24,13 +22,11 @@ def download_image():
         print("Failed to download image. Status code:", response.status_code)
         return False
 
-# TODO: Download the image and get a response from openai
+# Download the image and get a response from openai
 if download_image():
     try:
         aiResponse = processImage()
         print(f"AI responded")
     except Exception as e:
         print(f"Error processing OpenAI: {e}")
-
-# TODO: How to control when to take photo?
 

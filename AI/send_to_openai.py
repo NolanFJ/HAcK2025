@@ -1,9 +1,8 @@
-# TODO: Import your libaries
 import base64
 from openai import OpenAI
 from pathlib import Path
 
-# TODO: Maybe you need a key?
+# import key
 from key import API_KEY
 
 client = OpenAI(api_key = API_KEY)
@@ -21,7 +20,7 @@ def processImage():
     # Getting the base64 string
     base64_image = encode_image(image_path)
 
-    # TODO: Sending a request and getting a response
+    # Sending a request and getting a response
     response = client.responses.create(
         model="gpt-4.1",
         input=[
@@ -38,7 +37,7 @@ def processImage():
         ],
     )
 
-    # TODO: How do we make things audible?
+    # make things audible
     speech_file_path = Path(__file__).parent.parent / "frontend" / "public" / "speech.mp3"
 
     with client.audio.speech.with_streaming_response.create(
@@ -48,6 +47,4 @@ def processImage():
         instructions="Speak in a cheerful and positive tone.",
     ) as response:
         response.stream_to_file(speech_file_path)
-
-    # TODO: Can we put everything together?
 
