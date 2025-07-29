@@ -36,8 +36,8 @@ def handle_message(topic, msg):
         oled.show()
 def main():
     try:
-        connect_internet("", password="")
-        client = connect_mqtt("", "", "")
+        connect_internet("bruins", password="connect12")
+        client = connect_mqtt("07e486cd3c324be6a09b98399a0b48e3.s1.eu.hivemq.cloud", "David", "DavidValdez1")
         
         client.set_callback(handle_message)
         client.subscribe(b"take_picture")
@@ -63,7 +63,7 @@ def main():
                 client.publish("ultrasonic", str(distance))
                 
             counter += 1
-            sleep(0.2)
+            sleep(0.02)
     except KeyboardInterrupt:
         print("Keyboard interrupt detected. Exiting...")
 if __name__ == "__main__":

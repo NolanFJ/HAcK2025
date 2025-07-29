@@ -1,35 +1,31 @@
 from machine import ADC, Pin
 from time import sleep
 
-# PLEASE FIX & TEST THISSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
 class Light:
     def __init__(self, pin=28):
         self.ldr = ADC(Pin(pin))
-        self.fixed_resistor = 1000 # ohms
-        
-    #Function to convert raw ADC to lux
+
     def adc_to_lux(self, adc_val):
-        voltage = adc_val * 3.3 / 65535 # convert to actual voltage
-       
-        # Don't think this is needed
-        if voltage == 0:
-            return 0 # avoid division by zero
-        
-        # Compute LDR resistance based on voltage divider formula
-        ldr_resistance = self.fixed_resistor * (3.3 - voltage) / voltage
+        # These should be your calibration values
+        adc_dark = 49000    # ADC reading at known low lux
+        lumen_dark = 0.95        # Lumen at adc_dark
 
-        # Need to adjust A and B . . . should only return lux
-        A = 500000 # depends on LDR
-        B = 1.4 # depends on LDR
-        
-        lux = (A / ldr_resistance) ** (1 / B)
-        return ((lux / 100) + 0.05) # Calibrate
-        
+        adc_bright = 62500  # ADC reading at known bright level
+        lumen_bright = 1   # Lumen at adc_bright
+
+        # Slope of linear interpolation 
+        m = (lumen_bright - lumen_dark) / (adc_bright - adc_dark)
+        b = lumen_dark - m * adc_dark
+
+        lumen = m * adc_val + b
+
+        if lumen < 0:
+            lumen = 0
+
+        return lumen
+
     def readLux(self):
-        raw = self.ldr.read_u16()
-        lux = self.adc_to_lux(raw)
-        
-        return f"Lux: {lux:.2f}"
-
-
+        adc_value = self.ldr.read_u16()
+        lux = self.adc_to_lux(adc_value)
+        return f"{lux:.2f}"
 
